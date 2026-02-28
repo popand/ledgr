@@ -8,8 +8,7 @@ final class AuthService: ObservableObject {
     @Published private(set) var userEmail: String?
 
     private let requiredScopes = [
-        "https://www.googleapis.com/auth/drive.file",
-        "https://www.googleapis.com/auth/spreadsheets"
+        "https://www.googleapis.com/auth/drive.file"
     ]
 
     // MARK: - Public

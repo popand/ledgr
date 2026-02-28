@@ -13,20 +13,25 @@ final class SettingsViewModel: ObservableObject {
     @Published var sheetsName: String
     @Published var errorMessage: String?
 
-    private let authService: AuthService
+    private var authService: AuthService?
 
-    init(authService: AuthService) {
-        self.authService = authService
+    init() {
         self.defaultCurrency = UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "CAD"
         self.driveFolderName = UserDefaults.standard.string(forKey: UserDefaultsKeys.driveFolderName) ?? APIConstants.defaultDriveFolderName
         self.sheetsName = UserDefaults.standard.string(forKey: UserDefaultsKeys.sheetsName) ?? APIConstants.defaultSheetsName
 
+        checkApiKeyStatus()
+    }
+
+    func configure(authService: AuthService) {
+        guard self.authService == nil else { return }
+        self.authService = authService
         refreshState()
     }
 
     func refreshState() {
-        isGoogleConnected = authService.isAuthenticated
-        userEmail = authService.userEmail
+        isGoogleConnected = authService?.isAuthenticated ?? false
+        userEmail = authService?.userEmail
         checkApiKeyStatus()
     }
 
@@ -34,6 +39,11 @@ final class SettingsViewModel: ObservableObject {
 
     func connectGoogle() async {
         errorMessage = nil
+
+        guard let authService else {
+            errorMessage = "Auth service not configured"
+            return
+        }
 
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let viewController = windowScene.windows.first?.rootViewController else {
@@ -51,7 +61,7 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func disconnectGoogle() {
-        authService.signOut()
+        authService?.signOut()
         isGoogleConnected = false
         userEmail = nil
     }

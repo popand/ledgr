@@ -3,15 +3,9 @@ import SwiftUI
 struct SettingsView: View {
 
     @EnvironmentObject private var dependencies: AppDependencies
-    @StateObject private var viewModel: SettingsViewModel
+    @StateObject private var viewModel = SettingsViewModel()
     @State private var apiKeyInput = ""
     @State private var showApiKeyField = false
-
-    init() {
-        _viewModel = StateObject(wrappedValue: SettingsViewModel(
-            authService: AuthService()
-        ))
-    }
 
     var body: some View {
         NavigationStack {
@@ -27,6 +21,9 @@ struct SettingsView: View {
                 .padding(.bottom, 20)
             }
             .background(Color.ledgrBackground.ignoresSafeArea())
+            .onAppear {
+                viewModel.configure(authService: dependencies.authService)
+            }
             .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button("OK") { viewModel.errorMessage = nil }
             } message: {

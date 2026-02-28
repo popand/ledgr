@@ -4,10 +4,14 @@ import SwiftData
 
 struct HomeView: View {
 
+    @Binding var selectedTab: Int
     @EnvironmentObject private var dependencies: AppDependencies
     @StateObject private var viewModel = CameraViewModel()
     @Query(sort: \Expense.createdAt, order: .reverse) private var recentExpenses: [Expense]
     @State private var showReview = false
+    @State private var showShareSheet = false
+    @State private var showCardBreakdown = false
+    @State private var csvFileURL: URL?
 
     var body: some View {
         NavigationStack {
@@ -48,6 +52,14 @@ struct HomeView: View {
                 if !isShowing {
                     viewModel.clearSelection()
                 }
+            }
+            .sheet(isPresented: $showShareSheet) {
+                if let url = csvFileURL {
+                    ShareSheet(activityItems: [url])
+                }
+            }
+            .sheet(isPresented: $showCardBreakdown) {
+                CardBreakdownView()
             }
         }
     }
@@ -177,15 +189,21 @@ struct HomeView: View {
 
                 Spacer()
 
-                quickActionButton(icon: "doc.text", label: "Export", color: Color.categoryTravel) {}
+                quickActionButton(icon: "doc.text", label: "Export", color: Color.categoryTravel) {
+                    exportCSV()
+                }
 
                 Spacer()
 
-                quickActionButton(icon: "chart.bar.fill", label: "Insights", color: Color.categoryOffice) {}
+                quickActionButton(icon: "chart.bar.fill", label: "Insights", color: Color.categoryOffice) {
+                    selectedTab = 1
+                }
 
                 Spacer()
 
-                quickActionButton(icon: "creditcard.fill", label: "Cards", color: Color.categoryEntertainment) {}
+                quickActionButton(icon: "creditcard.fill", label: "Cards", color: Color.categoryEntertainment) {
+                    showCardBreakdown = true
+                }
             }
             .padding(.vertical, 4)
             .cardStyle()
@@ -337,10 +355,64 @@ struct HomeView: View {
     private var defaultCurrency: String {
         UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "USD"
     }
+
+    // MARK: - CSV Export
+
+    private func exportCSV() {
+        let dateFormatter = DateFormatters.displayDate
+        var csv = "Date,Merchant,Category,Amount,Currency,Payment Method,Notes,Upload Status\n"
+
+        for expense in recentExpenses {
+            let date = dateFormatter.string(from: expense.transactionDate)
+            let merchant = expense.merchantName.csvEscaped
+            let category = expense.category.rawValue.csvEscaped
+            let amount = String(format: "%.2f", expense.totalAmount)
+            let currency = expense.currency
+            let payment = (expense.paymentMethod ?? "").csvEscaped
+            let notes = (expense.notes ?? "").csvEscaped
+            let status = expense.uploadStatus.rawValue
+
+            csv += "\(date),\(merchant),\(category),\(amount),\(currency),\(payment),\(notes),\(status)\n"
+        }
+
+        let fileName = "Ledgr_Expenses_\(DateFormatters.fileNameDate.string(from: Date())).csv"
+        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+
+        do {
+            try csv.write(to: tempURL, atomically: true, encoding: .utf8)
+            csvFileURL = tempURL
+            showShareSheet = true
+        } catch {
+            // File write failed — no-op, share sheet simply won't appear
+        }
+    }
+}
+
+// MARK: - Share Sheet
+
+private struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+// MARK: - CSV Escaping
+
+private extension String {
+    var csvEscaped: String {
+        if contains(",") || contains("\"") || contains("\n") {
+            return "\"\(replacingOccurrences(of: "\"", with: "\"\""))\""
+        }
+        return self
+    }
 }
 
 #Preview {
-    HomeView()
+    HomeView(selectedTab: .constant(0))
         .environmentObject(AppDependencies())
         .modelContainer(for: Expense.self, inMemory: true)
 }

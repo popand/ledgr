@@ -47,8 +47,6 @@ final class GoogleDriveService: ObservableObject {
             accessToken: accessToken
         )
 
-        try await setPublicPermission(fileId: fileId, accessToken: accessToken)
-
         let webViewLink = try await getWebViewLink(fileId: fileId, accessToken: accessToken)
 
         return (fileId, webViewLink)
