@@ -15,6 +15,10 @@ final class AppDependencies: ObservableObject {
         self.authService = AuthService()
         self.googleDriveService = GoogleDriveService()
         self.googleSheetsService = GoogleSheetsService()
-        self.uploadQueueService = UploadQueueService()
+        self.uploadQueueService = UploadQueueService(
+            authService: authService,
+            driveService: googleDriveService,
+            sheetsService: googleSheetsService
+        )
     }
 }

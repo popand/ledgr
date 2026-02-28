@@ -1,0 +1,541 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		064FEB4068E3B11556C832F7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78C40B3ADB60CD1AF93F615 /* Constants.swift */; };
+		0EC37DDBEA0DB50ED2C93FE2 /* GoogleDriveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E093F7B9B2ABB39D47044 /* GoogleDriveService.swift */; };
+		1C3F6FE173F170C343AB34EA /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE4CED2E59D2A9AA311E84C /* ErrorView.swift */; };
+		1C7002C956E12256C79E216F /* GoogleSheetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713B79592E5C98F2D9A1FC5 /* GoogleSheetsService.swift */; };
+		263D7D747B7E61AAA52E4982 /* UploadStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE450C8E8BFCC0F18E666F6 /* UploadStatus.swift */; };
+		29B3F764C3135B7C2093E367 /* LedgrError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E83FB1D7388047D11A99C /* LedgrError.swift */; };
+		2DBCB4FE83C8FD9048E8787E /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBD670C05D3DC94C1C880FD /* ColorExtensions.swift */; };
+		35937CF9B9A02AB35AB3FD48 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEBB62587730865BC5B056 /* LoadingView.swift */; };
+		38925539643DF59C7EA671EC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD90B71360DD301CE55D9EA /* SettingsView.swift */; };
+		3E3613AEA959E535DEDDD88D /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E7AD541DFFF179E1F0C472 /* HistoryViewModel.swift */; };
+		590A07C18C970B55B12C622E /* LLMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9660837B38F8FAABD1A852 /* LLMService.swift */; };
+		5A07E36D5D75AA1C76D4F56A /* LedgrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DE9D808762918D6B633FD4 /* LedgrApp.swift */; };
+		5CD6E9E55B8D1FFA012EF9CC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21B24F720788F6C9950C0BC /* HistoryView.swift */; };
+		69A053874C21CF5CEE2A5F54 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F591C7A371D0FB671688EE /* HomeView.swift */; };
+		6BB343BF6738DBFBE1D593B8 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FEED1FA7951FAFCEF2008A /* ReviewView.swift */; };
+		7BC308A31CFE6D945CBAF490 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B20935E14294AE5BB82F28 /* CameraViewModel.swift */; };
+		7CE5C9B08E3F53B784B890DD /* ExtractedExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C779A7DA2CEBEF9E3AE448 /* ExtractedExpense.swift */; };
+		8F786D7CD2877C23E45AB9D4 /* UploadQueueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE038A7F671F7819650F6C0F /* UploadQueueService.swift */; };
+		9B4044154F960FB48620264E /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABCEB2E2FE6020AA8E4AE53 /* ImageProcessor.swift */; };
+		A44990984286C4D0EA4649C5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06E22775B544234053171A /* LineItem.swift */; };
+		AA713DD12B70F6BB3FA62542 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB59ABDD41E1A375908EA5 /* AppDependencies.swift */; };
+		B20DD215BF25B85CA1B2DCE4 /* ExpenseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756F3BEB08F6A2908DF99636 /* ExpenseRowView.swift */; };
+		D7EF615FEA851F916057ADEB /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB698A353A04C97E8B0676A /* KeychainManager.swift */; };
+		DA67548DFFABF6082919C2F0 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BD62AE10ACC0299E66882B /* DateFormatters.swift */; };
+		DC9639739604A263853643D7 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A061689847BD504931C269B1 /* AuthService.swift */; };
+		DE8FC7DD5A8138801DDF5FDE /* CategoryBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C092E2708966A46A8A81C82 /* CategoryBadgeView.swift */; };
+		E05EDAD78C623675FCA4B617 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EA2A4C66B31CC6491A6A /* Expense.swift */; };
+		E5F8D9F64A3C19977288D516 /* ExpenseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422B061E596827BF6C9F3189 /* ExpenseCategory.swift */; };
+		E6DABCFA2659C201E613EC63 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9A83A42A58B95A25FD020 /* ReviewViewModel.swift */; };
+		EE6E535FBD064110D8E90FD5 /* LineItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ABD45A432301C56DA26302 /* LineItemRowView.swift */; };
+		F85FE22498D54968A53BA550 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD1D0E4B8BEC74F7EFBD66D /* SettingsViewModel.swift */; };
+		FC6D7B12A6679DB68A9A5BC6 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A67D4D5B68356342DF9051 /* CameraView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00C779A7DA2CEBEF9E3AE448 /* ExtractedExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractedExpense.swift; sourceTree = "<group>"; };
+		0713B79592E5C98F2D9A1FC5 /* GoogleSheetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSheetsService.swift; sourceTree = "<group>"; };
+		13A67D4D5B68356342DF9051 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		1AE450C8E8BFCC0F18E666F6 /* UploadStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadStatus.swift; sourceTree = "<group>"; };
+		26E7AD541DFFF179E1F0C472 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		2CF7EA2A4C66B31CC6491A6A /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		378E83FB1D7388047D11A99C /* LedgrError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgrError.swift; sourceTree = "<group>"; };
+		3AB698A353A04C97E8B0676A /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		422B061E596827BF6C9F3189 /* ExpenseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategory.swift; sourceTree = "<group>"; };
+		4FFB59ABDD41E1A375908EA5 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		5ABCEB2E2FE6020AA8E4AE53 /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		6EE4CED2E59D2A9AA311E84C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		74DE9D808762918D6B633FD4 /* LedgrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgrApp.swift; sourceTree = "<group>"; };
+		756F3BEB08F6A2908DF99636 /* ExpenseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRowView.swift; sourceTree = "<group>"; };
+		7C092E2708966A46A8A81C82 /* CategoryBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBadgeView.swift; sourceTree = "<group>"; };
+		7F9660837B38F8FAABD1A852 /* LLMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMService.swift; sourceTree = "<group>"; };
+		8BD90B71360DD301CE55D9EA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9BD1D0E4B8BEC74F7EFBD66D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		A061689847BD504931C269B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A8ABD45A432301C56DA26302 /* LineItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItemRowView.swift; sourceTree = "<group>"; };
+		ACBD670C05D3DC94C1C880FD /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		B4B20935E14294AE5BB82F28 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		C21B24F720788F6C9950C0BC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		CE038A7F671F7819650F6C0F /* UploadQueueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadQueueService.swift; sourceTree = "<group>"; };
+		D2F591C7A371D0FB671688EE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D78C40B3ADB60CD1AF93F615 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D9F9A83A42A58B95A25FD020 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		E2D8BF2CBD658A25ACBB7A3F /* Ledgr.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ledgr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9BEBB62587730865BC5B056 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		EA06E22775B544234053171A /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
+		F1BD62AE10ACC0299E66882B /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		F64E093F7B9B2ABB39D47044 /* GoogleDriveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveService.swift; sourceTree = "<group>"; };
+		F9FEED1FA7951FAFCEF2008A /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0074E3CB62D9D204D3FA9289 = {
+			isa = PBXGroup;
+			children = (
+				16A960D97B9F46B733DBC5C5 /* Ledgr */,
+				A2B01099C261FEBB9950AF13 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		014281539AF883B60876B336 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB59ABDD41E1A375908EA5 /* AppDependencies.swift */,
+				74DE9D808762918D6B633FD4 /* LedgrApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		16A960D97B9F46B733DBC5C5 /* Ledgr */ = {
+			isa = PBXGroup;
+			children = (
+				014281539AF883B60876B336 /* App */,
+				5DA4506B39F7009B59C66372 /* Models */,
+				8476E43754E31BB99C60919B /* Preview Content */,
+				DA844BD9363DDE5E4D8EAE1F /* Resources */,
+				39388A093E255536D084A42A /* Services */,
+				E7928FC93D1E3300881B48CA /* Utilities */,
+				C7EC3F26BBE4689170FC993E /* ViewModels */,
+				538D87B6A03B338EF1DA4A11 /* Views */,
+			);
+			path = Ledgr;
+			sourceTree = "<group>";
+		};
+		1964F0A9F8F3225FA2991549 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				A8ABD45A432301C56DA26302 /* LineItemRowView.swift */,
+				F9FEED1FA7951FAFCEF2008A /* ReviewView.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		39388A093E255536D084A42A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A061689847BD504931C269B1 /* AuthService.swift */,
+				F64E093F7B9B2ABB39D47044 /* GoogleDriveService.swift */,
+				0713B79592E5C98F2D9A1FC5 /* GoogleSheetsService.swift */,
+				7F9660837B38F8FAABD1A852 /* LLMService.swift */,
+				CE038A7F671F7819650F6C0F /* UploadQueueService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		538D87B6A03B338EF1DA4A11 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				683079687DF2C8B31C8FF387 /* Camera */,
+				9BEC8B448DE3D97E5DCC1E7E /* History */,
+				9EC4CD3836DC9998D99046E6 /* Home */,
+				1964F0A9F8F3225FA2991549 /* Review */,
+				6A714F4D2C468705DC97591B /* Settings */,
+				BF78209E59D0B8D02D3F8A21 /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5DA4506B39F7009B59C66372 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2CF7EA2A4C66B31CC6491A6A /* Expense.swift */,
+				422B061E596827BF6C9F3189 /* ExpenseCategory.swift */,
+				00C779A7DA2CEBEF9E3AE448 /* ExtractedExpense.swift */,
+				378E83FB1D7388047D11A99C /* LedgrError.swift */,
+				EA06E22775B544234053171A /* LineItem.swift */,
+				1AE450C8E8BFCC0F18E666F6 /* UploadStatus.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		683079687DF2C8B31C8FF387 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				13A67D4D5B68356342DF9051 /* CameraView.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		6A714F4D2C468705DC97591B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8BD90B71360DD301CE55D9EA /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		8476E43754E31BB99C60919B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9BEC8B448DE3D97E5DCC1E7E /* History */ = {
+			isa = PBXGroup;
+			children = (
+				756F3BEB08F6A2908DF99636 /* ExpenseRowView.swift */,
+				C21B24F720788F6C9950C0BC /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9EC4CD3836DC9998D99046E6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D2F591C7A371D0FB671688EE /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A2B01099C261FEBB9950AF13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2D8BF2CBD658A25ACBB7A3F /* Ledgr.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF78209E59D0B8D02D3F8A21 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				7C092E2708966A46A8A81C82 /* CategoryBadgeView.swift */,
+				6EE4CED2E59D2A9AA311E84C /* ErrorView.swift */,
+				E9BEBB62587730865BC5B056 /* LoadingView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C7EC3F26BBE4689170FC993E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B4B20935E14294AE5BB82F28 /* CameraViewModel.swift */,
+				26E7AD541DFFF179E1F0C472 /* HistoryViewModel.swift */,
+				D9F9A83A42A58B95A25FD020 /* ReviewViewModel.swift */,
+				9BD1D0E4B8BEC74F7EFBD66D /* SettingsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DA844BD9363DDE5E4D8EAE1F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E7928FC93D1E3300881B48CA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				ACBD670C05D3DC94C1C880FD /* ColorExtensions.swift */,
+				D78C40B3ADB60CD1AF93F615 /* Constants.swift */,
+				F1BD62AE10ACC0299E66882B /* DateFormatters.swift */,
+				5ABCEB2E2FE6020AA8E4AE53 /* ImageProcessor.swift */,
+				3AB698A353A04C97E8B0676A /* KeychainManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4C7DFF27B8286E55F93A59B /* Ledgr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC0F9E53134B6F08AE330D89 /* Build configuration list for PBXNativeTarget "Ledgr" */;
+			buildPhases = (
+				EB2D32A23F2231F0B04F0B13 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ledgr;
+			packageProductDependencies = (
+			);
+			productName = Ledgr;
+			productReference = E2D8BF2CBD658A25ACBB7A3F /* Ledgr.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD9BF44D36F2846193D1E695 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					D4C7DFF27B8286E55F93A59B = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 2FDC684826CB930B46A064B3 /* Build configuration list for PBXProject "Ledgr" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 0074E3CB62D9D204D3FA9289;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4C7DFF27B8286E55F93A59B /* Ledgr */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EB2D32A23F2231F0B04F0B13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA713DD12B70F6BB3FA62542 /* AppDependencies.swift in Sources */,
+				DC9639739604A263853643D7 /* AuthService.swift in Sources */,
+				FC6D7B12A6679DB68A9A5BC6 /* CameraView.swift in Sources */,
+				7BC308A31CFE6D945CBAF490 /* CameraViewModel.swift in Sources */,
+				DE8FC7DD5A8138801DDF5FDE /* CategoryBadgeView.swift in Sources */,
+				2DBCB4FE83C8FD9048E8787E /* ColorExtensions.swift in Sources */,
+				064FEB4068E3B11556C832F7 /* Constants.swift in Sources */,
+				DA67548DFFABF6082919C2F0 /* DateFormatters.swift in Sources */,
+				1C3F6FE173F170C343AB34EA /* ErrorView.swift in Sources */,
+				E05EDAD78C623675FCA4B617 /* Expense.swift in Sources */,
+				E5F8D9F64A3C19977288D516 /* ExpenseCategory.swift in Sources */,
+				B20DD215BF25B85CA1B2DCE4 /* ExpenseRowView.swift in Sources */,
+				7CE5C9B08E3F53B784B890DD /* ExtractedExpense.swift in Sources */,
+				0EC37DDBEA0DB50ED2C93FE2 /* GoogleDriveService.swift in Sources */,
+				1C7002C956E12256C79E216F /* GoogleSheetsService.swift in Sources */,
+				5CD6E9E55B8D1FFA012EF9CC /* HistoryView.swift in Sources */,
+				3E3613AEA959E535DEDDD88D /* HistoryViewModel.swift in Sources */,
+				69A053874C21CF5CEE2A5F54 /* HomeView.swift in Sources */,
+				9B4044154F960FB48620264E /* ImageProcessor.swift in Sources */,
+				D7EF615FEA851F916057ADEB /* KeychainManager.swift in Sources */,
+				590A07C18C970B55B12C622E /* LLMService.swift in Sources */,
+				5A07E36D5D75AA1C76D4F56A /* LedgrApp.swift in Sources */,
+				29B3F764C3135B7C2093E367 /* LedgrError.swift in Sources */,
+				A44990984286C4D0EA4649C5 /* LineItem.swift in Sources */,
+				EE6E535FBD064110D8E90FD5 /* LineItemRowView.swift in Sources */,
+				35937CF9B9A02AB35AB3FD48 /* LoadingView.swift in Sources */,
+				6BB343BF6738DBFBE1D593B8 /* ReviewView.swift in Sources */,
+				E6DABCFA2659C201E613EC63 /* ReviewViewModel.swift in Sources */,
+				38925539643DF59C7EA671EC /* SettingsView.swift in Sources */,
+				F85FE22498D54968A53BA550 /* SettingsViewModel.swift in Sources */,
+				8F786D7CD2877C23E45AB9D4 /* UploadQueueService.swift in Sources */,
+				263D7D747B7E61AAA52E4982 /* UploadStatus.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		30A32FD31461FB5A92D17F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		37A3D4016C2097EE718134FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Ledgr needs camera access to photograph receipts.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Ledgr needs photo library access to select receipt images.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popand.Ledgr;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6AE23AD668982CD97DA3EF98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		96A82A9C8680AA749337D778 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Ledgr needs camera access to photograph receipts.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Ledgr needs photo library access to select receipt images.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popand.Ledgr;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FDC684826CB930B46A064B3 /* Build configuration list for PBXProject "Ledgr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30A32FD31461FB5A92D17F3F /* Debug */,
+				6AE23AD668982CD97DA3EF98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BC0F9E53134B6F08AE330D89 /* Build configuration list for PBXNativeTarget "Ledgr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37A3D4016C2097EE718134FF /* Debug */,
+				96A82A9C8680AA749337D778 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD9BF44D36F2846193D1E695 /* Project object */;
+}
