@@ -11,6 +11,11 @@ settings:
     SWIFT_VERSION: "5.9"
     DEVELOPMENT_TEAM: ""
 
+packages:
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS
+    from: "8.0.0"
+
 targets:
   Ledgr:
     type: application
@@ -19,6 +24,11 @@ targets:
       - path: Ledgr
         excludes:
           - "Preview Content/**"
+    dependencies:
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
     settings:
       base:
         INFOPLIST_GENERATION_MODE: GeneratedFile

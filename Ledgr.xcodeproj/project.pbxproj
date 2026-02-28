@@ -22,6 +22,7 @@
 		5CD6E9E55B8D1FFA012EF9CC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21B24F720788F6C9950C0BC /* HistoryView.swift */; };
 		69A053874C21CF5CEE2A5F54 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F591C7A371D0FB671688EE /* HomeView.swift */; };
 		6BB343BF6738DBFBE1D593B8 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FEED1FA7951FAFCEF2008A /* ReviewView.swift */; };
+		70786E822FACBF63E86BF4C8 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1DED2F052674BD12A1B014A0 /* GoogleSignInSwift */; };
 		7BC308A31CFE6D945CBAF490 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B20935E14294AE5BB82F28 /* CameraViewModel.swift */; };
 		7CE5C9B08E3F53B784B890DD /* ExtractedExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C779A7DA2CEBEF9E3AE448 /* ExtractedExpense.swift */; };
 		8F786D7CD2877C23E45AB9D4 /* UploadQueueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE038A7F671F7819650F6C0F /* UploadQueueService.swift */; };
@@ -29,6 +30,7 @@
 		A44990984286C4D0EA4649C5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06E22775B544234053171A /* LineItem.swift */; };
 		AA713DD12B70F6BB3FA62542 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB59ABDD41E1A375908EA5 /* AppDependencies.swift */; };
 		B20DD215BF25B85CA1B2DCE4 /* ExpenseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756F3BEB08F6A2908DF99636 /* ExpenseRowView.swift */; };
+		CA1500953BBC2E8CCE40CDD3 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 109D8D9BA5AF187DC537A6E6 /* GoogleSignIn */; };
 		D7EF615FEA851F916057ADEB /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB698A353A04C97E8B0676A /* KeychainManager.swift */; };
 		DA67548DFFABF6082919C2F0 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BD62AE10ACC0299E66882B /* DateFormatters.swift */; };
 		DC9639739604A263853643D7 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A061689847BD504931C269B1 /* AuthService.swift */; };
@@ -76,6 +78,18 @@
 		F64E093F7B9B2ABB39D47044 /* GoogleDriveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveService.swift; sourceTree = "<group>"; };
 		F9FEED1FA7951FAFCEF2008A /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1666C5C010C704DFF030D04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1500953BBC2E8CCE40CDD3 /* GoogleSignIn in Frameworks */,
+				70786E822FACBF63E86BF4C8 /* GoogleSignInSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0074E3CB62D9D204D3FA9289 = {
@@ -253,6 +267,7 @@
 			buildConfigurationList = BC0F9E53134B6F08AE330D89 /* Build configuration list for PBXNativeTarget "Ledgr" */;
 			buildPhases = (
 				EB2D32A23F2231F0B04F0B13 /* Sources */,
+				F1666C5C010C704DFF030D04 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,6 +275,8 @@
 			);
 			name = Ledgr;
 			packageProductDependencies = (
+				109D8D9BA5AF187DC537A6E6 /* GoogleSignIn */,
+				1DED2F052674BD12A1B014A0 /* GoogleSignInSwift */,
 			);
 			productName = Ledgr;
 			productReference = E2D8BF2CBD658A25ACBB7A3F /* Ledgr.app */;
@@ -289,6 +306,9 @@
 			);
 			mainGroup = 0074E3CB62D9D204D3FA9289;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D5591F1F0C220CD725457D84 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
@@ -536,6 +556,30 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D5591F1F0C220CD725457D84 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		109D8D9BA5AF187DC537A6E6 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5591F1F0C220CD725457D84 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		1DED2F052674BD12A1B014A0 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5591F1F0C220CD725457D84 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CD9BF44D36F2846193D1E695 /* Project object */;
 }
