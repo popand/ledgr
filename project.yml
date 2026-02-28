@@ -29,18 +29,24 @@ targets:
         product: GoogleSignIn
       - package: GoogleSignIn
         product: GoogleSignInSwift
+    info:
+      path: Ledgr/Resources/Info.plist
+      properties:
+        GIDClientID: "758203290065-pm6ml5j2dopeeesvh9mrf11gfoeg8or1.apps.googleusercontent.com"
+        CFBundleURLTypes:
+          - CFBundleURLSchemes:
+              - "com.googleusercontent.apps.758203290065-pm6ml5j2dopeeesvh9mrf11gfoeg8or1"
+        NSCameraUsageDescription: "Ledgr needs camera access to photograph receipts."
+        NSPhotoLibraryUsageDescription: "Ledgr needs photo library access to select receipt images."
     settings:
       base:
-        INFOPLIST_GENERATION_MODE: GeneratedFile
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
-        GENERATE_INFOPLIST_FILE: YES
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Ledgr/Resources/Info.plist
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
-        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
-        INFOPLIST_KEY_NSCameraUsageDescription: "Ledgr needs camera access to photograph receipts."
-        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Ledgr needs photo library access to select receipt images."
         PRODUCT_BUNDLE_IDENTIFIER: com.popand.Ledgr
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

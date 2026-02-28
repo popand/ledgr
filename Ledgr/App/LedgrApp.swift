@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import GoogleSignIn
 
 @main
 struct LedgrApp: App {
@@ -29,6 +30,9 @@ struct LedgrApp: App {
             }
             .tint(Color.ledgrPrimary)
             .environmentObject(dependencies)
+            .onOpenURL { url in
+                GIDSignIn.sharedInstance.handle(url)
+            }
         }
         .modelContainer(for: Expense.self)
     }
