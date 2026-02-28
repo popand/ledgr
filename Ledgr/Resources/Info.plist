@@ -33,5 +33,18 @@
 	<string>Ledgr needs camera access to photograph receipts.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Ledgr needs photo library access to select receipt images.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 </dict>
 </plist>
