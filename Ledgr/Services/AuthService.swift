@@ -16,6 +16,19 @@ final class AuthService: ObservableObject {
 
     @MainActor
     func signIn(presenting viewController: UIViewController) async throws {
+        // GIDSignIn crashes with NSException if no client ID is configured.
+        // Check before calling to prevent a fatal crash.
+        guard let clientID = Bundle.main.object(forInfoDictionaryKey: "GIDClientID") as? String,
+              !clientID.isEmpty else {
+            throw LedgrError.googleAuthFailed(
+                "Google Sign-In is not configured. Add your GIDClientID to Info.plist. " +
+                "See README.md for setup instructions."
+            )
+        }
+
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
         do {
             let result = try await GIDSignIn.sharedInstance.signIn(
                 withPresenting: viewController,
