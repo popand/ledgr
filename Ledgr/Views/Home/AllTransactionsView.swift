@@ -17,30 +17,27 @@ struct AllTransactionsView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
+            Group {
                 if expenses.isEmpty {
-                    emptyState
+                    ScrollView {
+                        emptyState
+                    }
                 } else {
-                    VStack(spacing: 0) {
-                        ForEach(Array(expenses.enumerated()), id: \.element.id) { index, expense in
+                    List {
+                        ForEach(expenses) { expense in
                             ExpenseRowView(expense: expense)
-                                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                    Button(role: .destructive) {
-                                        expenseToDelete = expense
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
-                                }
-
-                            if index < expenses.count - 1 {
-                                Divider()
-                                    .padding(.leading, 58)
+                                .listRowInsets(EdgeInsets(top: 6, leading: 20, bottom: 6, trailing: 20))
+                                .listRowBackground(Color.white)
+                                .listRowSeparatorTint(Color.ledgrBackground)
+                        }
+                        .onDelete { indexSet in
+                            if let index = indexSet.first {
+                                expenseToDelete = expenses[index]
                             }
                         }
                     }
-                    .cardStyle()
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 16)
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
             }
             .background(Color.ledgrBackground.ignoresSafeArea())
