@@ -7,6 +7,10 @@ struct HistoryView: View {
     @StateObject private var viewModel = HistoryViewModel()
     @State private var showDateFilter = false
 
+    private var defaultCurrency: String {
+        UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "CAD"
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -74,7 +78,7 @@ struct HistoryView: View {
                     .foregroundStyle(.white.opacity(0.7))
 
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text(viewModel.totalAmount, format: .currency(code: "USD"))
+                    Text(viewModel.primaryTotal, format: .currency(code: defaultCurrency))
                         .font(.system(size: 30, weight: .bold, design: .rounded))
                         .foregroundStyle(.white)
 
@@ -86,6 +90,16 @@ struct HistoryView: View {
                                 .font(.caption.weight(.medium))
                         }
                         .foregroundStyle(Color.ledgrSuccess)
+                    }
+                }
+
+                if !viewModel.secondaryTotals.isEmpty {
+                    HStack(spacing: 8) {
+                        ForEach(viewModel.secondaryTotals, id: \.currency) { entry in
+                            Text("+ \(entry.total, format: .currency(code: entry.currency))")
+                                .font(.footnote.weight(.medium))
+                                .foregroundStyle(.white.opacity(0.7))
+                        }
                     }
                 }
             }
@@ -186,7 +200,7 @@ struct HistoryView: View {
                 .font(.headline)
                 .foregroundStyle(Color.ledgrDark)
 
-            if viewModel.categoryTotals.isEmpty {
+            if viewModel.categoryTotalsByCurrency.isEmpty {
                 Text("No data yet")
                     .font(.subheadline)
                     .foregroundStyle(Color.ledgrSecondaryText)
@@ -195,23 +209,28 @@ struct HistoryView: View {
                     .cardStyle()
             } else {
                 VStack(spacing: 16) {
-                    ForEach(viewModel.categoryTotals, id: \.0) { category, total in
+                    ForEach(viewModel.categoryTotalsByCurrency, id: \.category) { entry in
                         HStack(spacing: 12) {
                             Circle()
-                                .fill(CategoryBadgeView(category: category).color)
+                                .fill(CategoryBadgeView(category: entry.category).color)
                                 .frame(width: 10, height: 10)
 
-                            Text(category.rawValue)
+                            Text(entry.category.rawValue)
                                 .font(.subheadline)
                                 .foregroundStyle(Color.ledgrDark)
 
                             Spacer()
 
-                            Text(total, format: .currency(code: "USD"))
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(Color.ledgrDark)
+                            VStack(alignment: .trailing, spacing: 2) {
+                                ForEach(entry.totals, id: \.currency) { currencyTotal in
+                                    Text(currencyTotal.total, format: .currency(code: currencyTotal.currency))
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(Color.ledgrDark)
+                                }
+                            }
 
-                            let percentage = viewModel.totalAmount > 0 ? Int((total / viewModel.totalAmount) * 100) : 0
+                            let categorySum = entry.totals.reduce(0) { $0 + $1.total }
+                            let percentage = viewModel.totalAmount > 0 ? Int((categorySum / viewModel.totalAmount) * 100) : 0
                             Text("\(percentage)%")
                                 .font(.caption.weight(.medium))
                                 .foregroundStyle(Color.ledgrSecondaryText)

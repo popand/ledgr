@@ -67,6 +67,45 @@ final class HistoryViewModel: ObservableObject {
         filteredExpenses.reduce(0) { $0 + $1.totalAmount }
     }
 
+    private var defaultCurrency: String {
+        UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "CAD"
+    }
+
+    var totalsByCurrency: [(currency: String, total: Double)] {
+        let grouped = Dictionary(grouping: filteredExpenses) { $0.currency }
+        let result = grouped.map { (currency: $0.key, total: $0.value.reduce(0) { $0 + $1.totalAmount }) }
+        return result.sorted { lhs, rhs in
+            if lhs.currency == defaultCurrency { return true }
+            if rhs.currency == defaultCurrency { return false }
+            return lhs.currency < rhs.currency
+        }
+    }
+
+    var primaryTotal: Double {
+        totalsByCurrency.first { $0.currency == defaultCurrency }?.total ?? 0
+    }
+
+    var secondaryTotals: [(currency: String, total: Double)] {
+        totalsByCurrency.filter { $0.currency != defaultCurrency }
+    }
+
+    var categoryTotalsByCurrency: [(category: ExpenseCategory, totals: [(currency: String, total: Double)])] {
+        var map: [ExpenseCategory: [String: Double]] = [:]
+        for expense in filteredExpenses {
+            map[expense.category, default: [:]][expense.currency, default: 0] += expense.totalAmount
+        }
+        return map.map { category, currencyMap in
+            let sorted = currencyMap.map { (currency: $0.key, total: $0.value) }
+                .sorted { lhs, rhs in
+                    if lhs.currency == defaultCurrency { return true }
+                    if rhs.currency == defaultCurrency { return false }
+                    return lhs.currency < rhs.currency
+                }
+            return (category: category, totals: sorted)
+        }
+        .sorted { $0.category.rawValue < $1.category.rawValue }
+    }
+
     func loadExpenses(modelContext: ModelContext) {
         let descriptor = FetchDescriptor<Expense>(
             sortBy: [SortDescriptor(\.transactionDate, order: .reverse)]

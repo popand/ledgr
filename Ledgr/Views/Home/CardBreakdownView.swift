@@ -108,7 +108,7 @@ struct CardBreakdownView: View {
     }
 
     private var defaultCurrency: String {
-        UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "USD"
+        UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "CAD"
     }
 }
 

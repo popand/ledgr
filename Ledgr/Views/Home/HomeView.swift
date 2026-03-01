@@ -138,9 +138,19 @@ struct HomeView: View {
                         .font(.caption.weight(.medium))
                         .foregroundStyle(.white.opacity(0.7))
 
-                    Text(totalExpenses, format: .currency(code: defaultCurrency))
+                    Text(primaryTotal, format: .currency(code: defaultCurrency))
                         .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundStyle(.white)
+
+                    if !secondaryTotals.isEmpty {
+                        HStack(spacing: 8) {
+                            ForEach(secondaryTotals, id: \.currency) { entry in
+                                Text("+ \(entry.total, format: .currency(code: entry.currency))")
+                                    .font(.footnote.weight(.medium))
+                                    .foregroundStyle(.white.opacity(0.7))
+                            }
+                        }
+                    }
                 }
 
                 Spacer()
@@ -452,12 +462,27 @@ struct HomeView: View {
 
     // MARK: - Computed
 
-    private var totalExpenses: Double {
-        recentExpenses.reduce(0) { $0 + $1.totalAmount }
+    private var defaultCurrency: String {
+        UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "CAD"
     }
 
-    private var defaultCurrency: String {
-        UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "USD"
+    private var expensesByCurrency: [(currency: String, total: Double)] {
+        let grouped = Dictionary(grouping: recentExpenses) { $0.currency }
+        let result = grouped.map { (currency: $0.key, total: $0.value.reduce(0) { $0 + $1.totalAmount }) }
+        // Default currency first, then alphabetical
+        return result.sorted { lhs, rhs in
+            if lhs.currency == defaultCurrency { return true }
+            if rhs.currency == defaultCurrency { return false }
+            return lhs.currency < rhs.currency
+        }
+    }
+
+    private var primaryTotal: Double {
+        expensesByCurrency.first { $0.currency == defaultCurrency }?.total ?? 0
+    }
+
+    private var secondaryTotals: [(currency: String, total: Double)] {
+        expensesByCurrency.filter { $0.currency != defaultCurrency }
     }
 
     // MARK: - CSV Export
