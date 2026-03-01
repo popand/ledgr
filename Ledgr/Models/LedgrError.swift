@@ -9,6 +9,8 @@ enum LedgrError: LocalizedError {
     case imageProcessingFailed(String)
     case networkUnavailable
     case invalidResponse
+    case sheetsReadFailed(String)
+    case insightGenerationFailed(String)
     case unknown(String)
 
     var errorDescription: String? {
@@ -29,6 +31,10 @@ enum LedgrError: LocalizedError {
             return "Network connection is unavailable"
         case .invalidResponse:
             return "Received an invalid response"
+        case .sheetsReadFailed(let message):
+            return "Failed to read from Google Sheets: \(message)"
+        case .insightGenerationFailed(let message):
+            return "Failed to generate insights: \(message)"
         case .unknown(let message):
             return "An unexpected error occurred: \(message)"
         }

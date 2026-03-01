@@ -29,6 +29,23 @@ final class LLMService: ObservableObject {
         return try parseResponse(data)
     }
 
+    func generateInsights(from expenseSummary: String) async throws -> [Insight] {
+        let apiKey = try loadAPIKey()
+        let request = try buildInsightsRequest(apiKey: apiKey, summary: expenseSummary)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw LedgrError.invalidResponse
+        }
+        guard (200...299).contains(httpResponse.statusCode) else {
+            let body = String(data: data, encoding: .utf8) ?? "No response body"
+            throw LedgrError.insightGenerationFailed("HTTP \(httpResponse.statusCode): \(body)")
+        }
+
+        return try parseInsightsResponse(data)
+    }
+
     // MARK: - Private
 
     private func loadAPIKey() throws -> String {
@@ -116,6 +133,79 @@ final class LLMService: ObservableObject {
                 category: nil,
                 notes: "Failed to parse receipt automatically. Please fill in manually."
             )
+        }
+    }
+
+    private func buildInsightsRequest(apiKey: String, summary: String) throws -> URLRequest {
+        guard let url = URL(string: APIConstants.anthropicEndpoint) else {
+            throw LedgrError.insightGenerationFailed("Invalid API endpoint URL")
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+
+        let systemPrompt = """
+            You are a financial insights assistant for an expense tracking app. \
+            Analyze the expense summary and generate exactly 5 actionable insights. \
+            Return ONLY a valid JSON array of objects, each with: \
+            "title" (short headline), "description" (1-2 sentence insight), \
+            "icon" (SF Symbol name like "arrow.down.circle.fill", "lightbulb.fill", \
+            "chart.bar.fill", "exclamationmark.triangle.fill", "star.fill", etc.), \
+            and "icon_color" (one of: "success", "warning", "error", "primary"). \
+            Use "success" for positive trends, "warning" for areas to watch, \
+            "error" for overspending, and "primary" for neutral observations.
+            """
+
+        let body: [String: Any] = [
+            "model": APIConstants.anthropicModel,
+            "max_tokens": 1024,
+            "system": systemPrompt,
+            "messages": [
+                [
+                    "role": "user",
+                    "content": "Here is my expense summary:\n\n\(summary)"
+                ]
+            ]
+        ]
+
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        return request
+    }
+
+    private func parseInsightsResponse(_ data: Data) throws -> [Insight] {
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let content = json["content"] as? [[String: Any]],
+              let firstBlock = content.first,
+              let text = firstBlock["text"] as? String else {
+            throw LedgrError.insightGenerationFailed("Unable to extract text from API response")
+        }
+
+        let jsonText = extractJSON(from: text)
+
+        guard let jsonData = jsonText.data(using: .utf8) else {
+            throw LedgrError.insightGenerationFailed("Unable to encode response as data")
+        }
+
+        let dtos = try JSONDecoder().decode([InsightDTO].self, from: jsonData)
+        return dtos.map { $0.toInsight() }
+    }
+
+    private struct InsightDTO: Codable {
+        let title: String
+        let description: String
+        let icon: String
+        let iconColor: String
+
+        enum CodingKeys: String, CodingKey {
+            case title, description, icon
+            case iconColor = "icon_color"
+        }
+
+        func toInsight() -> Insight {
+            Insight(title: title, description: description, icon: icon, iconColorName: iconColor)
         }
     }
 

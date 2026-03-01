@@ -43,6 +43,9 @@
 		EE6E535FBD064110D8E90FD5 /* LineItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ABD45A432301C56DA26302 /* LineItemRowView.swift */; };
 		F85FE22498D54968A53BA550 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD1D0E4B8BEC74F7EFBD66D /* SettingsViewModel.swift */; };
 		FC6D7B12A6679DB68A9A5BC6 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A67D4D5B68356342DF9051 /* CameraView.swift */; };
+		C3A1B2D4E5F607182930A1B2 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2C3E5F60718293A4B5C6D /* Insight.swift */; };
+		E4C2D3F5A6B718293041C2D3 /* InsightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D3E4A6B7182930514D3E4A /* InsightsViewModel.swift */; };
+		A5D3E4F6B7C829304152E4F5 /* AllInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E4F5A7C8293041526F5A6B /* AllInsightsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,9 @@
 		F1BD62AE10ACC0299E66882B /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		F64E093F7B9B2ABB39D47044 /* GoogleDriveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveService.swift; sourceTree = "<group>"; };
 		F9FEED1FA7951FAFCEF2008A /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		D4B2C3E5F60718293A4B5C6D /* Insight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
+		F5D3E4A6B7182930514D3E4A /* InsightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewModel.swift; sourceTree = "<group>"; };
+		B6E4F5A7C8293041526F5A6B /* AllInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInsightsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,7 @@
 				2CF7EA2A4C66B31CC6491A6A /* Expense.swift */,
 				422B061E596827BF6C9F3189 /* ExpenseCategory.swift */,
 				00C779A7DA2CEBEF9E3AE448 /* ExtractedExpense.swift */,
+				D4B2C3E5F60718293A4B5C6D /* Insight.swift */,
 				378E83FB1D7388047D11A99C /* LedgrError.swift */,
 				EA06E22775B544234053171A /* LineItem.swift */,
 				1AE450C8E8BFCC0F18E666F6 /* UploadStatus.swift */,
@@ -211,6 +218,7 @@
 		9EC4CD3836DC9998D99046E6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B6E4F5A7C8293041526F5A6B /* AllInsightsView.swift */,
 				B2C3D4E5F6071829A3B4C5D6 /* CardBreakdownView.swift */,
 				D2F591C7A371D0FB671688EE /* HomeView.swift */,
 			);
@@ -240,6 +248,7 @@
 			children = (
 				B4B20935E14294AE5BB82F28 /* CameraViewModel.swift */,
 				26E7AD541DFFF179E1F0C472 /* HistoryViewModel.swift */,
+				F5D3E4A6B7182930514D3E4A /* InsightsViewModel.swift */,
 				D9F9A83A42A58B95A25FD020 /* ReviewViewModel.swift */,
 				9BD1D0E4B8BEC74F7EFBD66D /* SettingsViewModel.swift */,
 			);
@@ -364,6 +373,9 @@
 				A1B2C3D4E5F60718293A4B5C /* CardBreakdownView.swift in Sources */,
 				69A053874C21CF5CEE2A5F54 /* HomeView.swift in Sources */,
 				9B4044154F960FB48620264E /* ImageProcessor.swift in Sources */,
+				C3A1B2D4E5F607182930A1B2 /* Insight.swift in Sources */,
+				E4C2D3F5A6B718293041C2D3 /* InsightsViewModel.swift in Sources */,
+				A5D3E4F6B7C829304152E4F5 /* AllInsightsView.swift in Sources */,
 				D7EF615FEA851F916057ADEB /* KeychainManager.swift in Sources */,
 				590A07C18C970B55B12C622E /* LLMService.swift in Sources */,
 				5A07E36D5D75AA1C76D4F56A /* LedgrApp.swift in Sources */,

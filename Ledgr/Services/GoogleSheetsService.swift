@@ -28,6 +28,37 @@ final class GoogleSheetsService: ObservableObject {
         return spreadsheetId
     }
 
+    // MARK: - Read Expenses
+
+    func readExpenses(spreadsheetId: String, accessToken: String) async throws -> [[String]] {
+        let range = "Sheet1!A:J"
+        guard let encodedRange = range.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "\(APIConstants.sheetsBaseEndpoint)/\(spreadsheetId)/values/\(encodedRange)") else {
+            throw LedgrError.sheetsReadFailed("Invalid read URL")
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw LedgrError.invalidResponse
+        }
+        guard (200...299).contains(httpResponse.statusCode) else {
+            let body = String(data: data, encoding: .utf8) ?? "No response body"
+            throw LedgrError.sheetsReadFailed("HTTP \(httpResponse.statusCode): \(body)")
+        }
+
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let values = json["values"] as? [[String]] else {
+            return []
+        }
+
+        return values
+    }
+
     // MARK: - Append Expense
 
     func appendExpense(

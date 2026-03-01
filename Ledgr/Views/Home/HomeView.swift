@@ -7,11 +7,14 @@ struct HomeView: View {
     @Binding var selectedTab: Int
     @EnvironmentObject private var dependencies: AppDependencies
     @StateObject private var viewModel = CameraViewModel()
+    @StateObject private var insightsViewModel = InsightsViewModel()
     @Query(sort: \Expense.createdAt, order: .reverse) private var recentExpenses: [Expense]
     @State private var showReview = false
     @State private var showShareSheet = false
     @State private var showCardBreakdown = false
+    @State private var showAllInsights = false
     @State private var csvFileURL: URL?
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationStack {
@@ -60,6 +63,26 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showCardBreakdown) {
                 CardBreakdownView()
+            }
+            .sheet(isPresented: $showAllInsights) {
+                if case .loaded(let insights) = insightsViewModel.state {
+                    AllInsightsView(insights: insights)
+                }
+            }
+            .task {
+                insightsViewModel.configure(
+                    llmService: dependencies.llmService,
+                    sheetsService: dependencies.googleSheetsService,
+                    authService: dependencies.authService
+                )
+                await insightsViewModel.generateInsights(localExpenses: recentExpenses)
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    Task {
+                        await insightsViewModel.generateInsights(localExpenses: recentExpenses)
+                    }
+                }
             }
         }
     }
@@ -242,47 +265,56 @@ struct HomeView: View {
 
                 Spacer()
 
-                Text("View all")
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(Color.ledgrPrimary)
+                if case .loaded(let insights) = insightsViewModel.state, !insights.isEmpty {
+                    Button {
+                        showAllInsights = true
+                    } label: {
+                        Text("View all")
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(Color.ledgrPrimary)
+                    }
+                }
             }
 
-            VStack(spacing: 12) {
-                insightCard(
-                    icon: "arrow.down.circle.fill",
-                    iconColor: Color.ledgrSuccess,
-                    title: "Spending is down",
-                    description: "Your expenses decreased by 14% compared to last month."
-                )
+            switch insightsViewModel.state {
+            case .idle, .loading:
+                insightsLoadingCard
 
-                insightCard(
-                    icon: "lightbulb.fill",
-                    iconColor: Color.ledgrWarning,
-                    title: "Top Category: Food & Dining",
-                    description: "Consider setting a budget for dining expenses."
-                )
+            case .loaded(let insights):
+                if insights.isEmpty {
+                    insightsEmptyCard
+                } else {
+                    VStack(spacing: 12) {
+                        ForEach(insights.prefix(2)) { insight in
+                            insightCard(insight)
+                        }
+                    }
+                }
+
+            case .error(let message):
+                insightsErrorCard(message: message)
             }
         }
     }
 
-    private func insightCard(icon: String, iconColor: Color, title: String, description: String) -> some View {
+    private func insightCard(_ insight: Insight) -> some View {
         HStack(alignment: .top, spacing: 14) {
             ZStack {
                 Circle()
-                    .fill(iconColor.opacity(0.12))
+                    .fill(insight.iconColor.opacity(0.12))
                     .frame(width: 40, height: 40)
 
-                Image(systemName: icon)
+                Image(systemName: insight.icon)
                     .font(.system(size: 18))
-                    .foregroundStyle(iconColor)
+                    .foregroundStyle(insight.iconColor)
             }
 
             VStack(alignment: .leading, spacing: 3) {
-                Text(title)
+                Text(insight.title)
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Color.ledgrDark)
 
-                Text(description)
+                Text(insight.description)
                     .font(.caption)
                     .foregroundStyle(Color.ledgrSecondaryText)
                     .lineLimit(2)
@@ -290,6 +322,66 @@ struct HomeView: View {
 
             Spacer(minLength: 0)
         }
+        .cardStyle()
+    }
+
+    private var insightsLoadingCard: some View {
+        HStack(spacing: 12) {
+            ProgressView()
+            Text("Generating insights...")
+                .font(.caption)
+                .foregroundStyle(Color.ledgrSecondaryText)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 24)
+        .cardStyle()
+    }
+
+    private var insightsEmptyCard: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "sparkles")
+                .font(.system(size: 24))
+                .foregroundStyle(Color.ledgrSubtleText)
+
+            Text("No insights yet")
+                .font(.caption.weight(.medium))
+                .foregroundStyle(Color.ledgrSecondaryText)
+
+            Text("Add some expenses to get AI-powered insights")
+                .font(.caption2)
+                .foregroundStyle(Color.ledgrSubtleText)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .cardStyle()
+    }
+
+    private func insightsErrorCard(message: String) -> some View {
+        VStack(spacing: 10) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 24))
+                .foregroundStyle(Color.ledgrWarning)
+
+            Text("Could not generate insights")
+                .font(.caption.weight(.medium))
+                .foregroundStyle(Color.ledgrSecondaryText)
+
+            Button {
+                Task {
+                    await insightsViewModel.generateInsights(localExpenses: recentExpenses)
+                }
+            } label: {
+                Text("Retry")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
+                    .background(Color.ledgrPrimary)
+                    .clipShape(Capsule())
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
         .cardStyle()
     }
 
