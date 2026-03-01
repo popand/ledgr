@@ -10,6 +10,8 @@ struct ReviewView: View {
     private let image: UIImage?
     private let imageData: Data
 
+    @State private var showFullImage = false
+
     private let currencies = ["CAD", "USD", "EUR", "GBP", "AUD", "JPY", "CHF", "MXN"]
 
     init(
@@ -119,7 +121,11 @@ struct ReviewView: View {
                     .frame(maxWidth: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .cardStyle(padding: 8, cornerRadius: 20)
+                    .onTapGesture { showFullImage = true }
             }
+        }
+        .fullScreenCover(isPresented: $showFullImage) {
+            ReceiptZoomView(image: image)
         }
     }
 
