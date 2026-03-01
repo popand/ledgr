@@ -15,7 +15,7 @@ struct HomeView: View {
     @State private var showAllInsights = false
     @State private var showAllTransactions = false
     @State private var csvFileURL: URL?
-    @Environment(\.scenePhase) private var scenePhase
+
 
     var body: some View {
         NavigationStack {
@@ -85,11 +85,9 @@ struct HomeView: View {
                 )
                 await insightsViewModel.generateInsights(localExpenses: recentExpenses)
             }
-            .onChange(of: scenePhase) { _, newPhase in
-                if newPhase == .active {
-                    Task {
-                        await insightsViewModel.generateInsights(localExpenses: recentExpenses)
-                    }
+            .onChange(of: recentExpenses.count) { _, _ in
+                Task {
+                    await insightsViewModel.generateInsights(localExpenses: recentExpenses)
                 }
             }
         }
@@ -386,7 +384,7 @@ struct HomeView: View {
 
             Button {
                 Task {
-                    await insightsViewModel.generateInsights(localExpenses: recentExpenses)
+                    await insightsViewModel.generateInsights(localExpenses: recentExpenses, force: true)
                 }
             } label: {
                 Text("Retry")

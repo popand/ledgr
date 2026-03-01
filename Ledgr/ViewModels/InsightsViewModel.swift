@@ -16,7 +16,7 @@ final class InsightsViewModel: ObservableObject {
     private var llmService: LLMService?
     private var sheetsService: GoogleSheetsService?
     private var authService: AuthService?
-    private var lastGenerationDate: Date?
+    private var lastExpenseCount: Int?
 
     func configure(llmService: LLMService, sheetsService: GoogleSheetsService, authService: AuthService) {
         guard self.llmService == nil else { return }
@@ -25,12 +25,15 @@ final class InsightsViewModel: ObservableObject {
         self.authService = authService
     }
 
-    func generateInsights(localExpenses: [Expense]) async {
-        // 60-second debounce
-        if let lastDate = lastGenerationDate, Date().timeIntervalSince(lastDate) < 60 {
+    func generateInsights(localExpenses: [Expense], force: Bool = false) async {
+        let currentCount = localExpenses.count
+
+        // Only regenerate when expense count changes (add/delete) or forced
+        if !force, let lastCount = lastExpenseCount, lastCount == currentCount {
             return
         }
 
+        lastExpenseCount = currentCount
         state = .loading
 
         do {
@@ -47,7 +50,6 @@ final class InsightsViewModel: ObservableObject {
             }
 
             let insights = try await llmService.generateInsights(from: summary)
-            lastGenerationDate = Date()
             state = .loaded(insights)
         } catch {
             state = .error(error.localizedDescription)
