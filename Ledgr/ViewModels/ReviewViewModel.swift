@@ -72,6 +72,7 @@ final class ReviewViewModel: ObservableObject {
 
         if let dateString = extracted.transactionDate {
             transactionDate = DateFormatters.iso8601.date(from: dateString)
+                ?? DateFormatters.yearMonthDay.date(from: dateString)
                 ?? DateFormatters.displayDate.date(from: dateString)
                 ?? Date()
         }

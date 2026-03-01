@@ -25,7 +25,7 @@ struct LoadingView: View {
 
             Text(message)
                 .font(.subheadline.weight(.medium))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.ledgrDark)
                 .multilineTextAlignment(.center)
         }
         .padding(32)

@@ -5,9 +5,17 @@ import SwiftData
 @MainActor
 final class HistoryViewModel: ObservableObject {
 
+    enum Period: String, CaseIterable {
+        case week = "Week"
+        case month = "Month"
+        case year = "Year"
+        case all = "All"
+    }
+
     @Published var expenses: [Expense] = []
     @Published var searchText = ""
     @Published var selectedCategory: ExpenseCategory?
+    @Published var selectedPeriod: Period = .month
     @Published var startDate: Date?
     @Published var endDate: Date?
 
@@ -24,6 +32,12 @@ final class HistoryViewModel: ObservableObject {
             result = result.filter { $0.category == category }
         }
 
+        // Apply period filter
+        if let periodStart = periodStartDate {
+            result = result.filter { $0.transactionDate >= periodStart }
+        }
+
+        // Apply manual date filters on top
         if let start = startDate {
             result = result.filter { $0.transactionDate >= start }
         }
@@ -33,6 +47,21 @@ final class HistoryViewModel: ObservableObject {
         }
 
         return result.sorted { $0.transactionDate > $1.transactionDate }
+    }
+
+    var periodStartDate: Date? {
+        let calendar = Calendar.current
+        let now = Date()
+        switch selectedPeriod {
+        case .week:
+            return calendar.date(byAdding: .day, value: -7, to: now)
+        case .month:
+            return calendar.date(byAdding: .month, value: -1, to: now)
+        case .year:
+            return calendar.date(byAdding: .year, value: -1, to: now)
+        case .all:
+            return nil
+        }
     }
 
     var categoryTotals: [(ExpenseCategory, Double)] {
@@ -126,6 +155,7 @@ final class HistoryViewModel: ObservableObject {
     func clearFilters() {
         searchText = ""
         selectedCategory = nil
+        selectedPeriod = .month
         startDate = nil
         endDate = nil
     }

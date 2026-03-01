@@ -11,6 +11,15 @@ struct HistoryView: View {
         UserDefaults.standard.string(forKey: UserDefaultsKeys.defaultCurrency) ?? "CAD"
     }
 
+    private var periodLabel: String {
+        switch viewModel.selectedPeriod {
+        case .week: return "Total Spent this Week"
+        case .month: return "Total Spent this Month"
+        case .year: return "Total Spent this Year"
+        case .all: return "Total Spent"
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -73,7 +82,7 @@ struct HistoryView: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text("Total Spent this Month")
+                Text(periodLabel)
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.white.opacity(0.7))
 
@@ -111,16 +120,18 @@ struct HistoryView: View {
 
     private var periodTabs: some View {
         HStack(spacing: 0) {
-            ForEach(["Week", "Month", "Year", "All"], id: \.self) { period in
+            ForEach(HistoryViewModel.Period.allCases, id: \.self) { period in
                 Button {
-                    // Period filter placeholder
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        viewModel.selectedPeriod = period
+                    }
                 } label: {
-                    Text(period)
+                    Text(period.rawValue)
                         .font(.caption.weight(.semibold))
                         .padding(.horizontal, 14)
                         .padding(.vertical, 7)
-                        .background(period == "Month" ? .white : .clear)
-                        .foregroundStyle(period == "Month" ? Color.ledgrPrimary : .white.opacity(0.7))
+                        .background(viewModel.selectedPeriod == period ? .white : .clear)
+                        .foregroundStyle(viewModel.selectedPeriod == period ? Color.ledgrPrimary : .white.opacity(0.7))
                         .clipShape(Capsule())
                 }
             }

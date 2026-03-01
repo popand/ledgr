@@ -32,18 +32,31 @@ struct ReviewView: View {
 
     var body: some View {
         Group {
-            if viewModel.isProcessing && viewModel.merchantName.isEmpty {
-                processingView
-            } else if viewModel.isComplete {
+            if viewModel.isComplete {
                 successView
             } else {
                 formContent
             }
         }
         .background(Color.ledgrBackground.ignoresSafeArea())
-        .navigationTitle("Review Receipt")
+        .overlay {
+            if viewModel.isProcessing && viewModel.merchantName.isEmpty {
+                ZStack {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+
+                    LoadingView(viewModel.processingStatus)
+                }
+                .transition(.opacity)
+            }
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(viewModel.isProcessing && viewModel.merchantName.isEmpty ? "Analyzing Receipt" : "Review Receipt")
+                    .font(.headline)
+                    .foregroundStyle(Color.ledgrDark)
+            }
             ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
@@ -118,6 +131,7 @@ struct ReviewView: View {
                 fieldRow(icon: "building.2", label: "Merchant") {
                     TextField("Name", text: $viewModel.merchantName)
                         .font(.subheadline)
+                        .foregroundStyle(Color.ledgrDark)
                         .multilineTextAlignment(.trailing)
                 }
 
@@ -133,6 +147,7 @@ struct ReviewView: View {
                 fieldRow(icon: "creditcard", label: "Payment") {
                     TextField("Method", text: $viewModel.paymentMethod)
                         .font(.subheadline)
+                        .foregroundStyle(Color.ledgrDark)
                         .multilineTextAlignment(.trailing)
                 }
             }
@@ -245,6 +260,7 @@ struct ReviewView: View {
 
             TextField("Add notes about this expense...", text: $viewModel.notes, axis: .vertical)
                 .font(.subheadline)
+                .foregroundStyle(Color.ledgrDark)
                 .lineLimit(3...6)
                 .padding(12)
                 .background(Color.ledgrBackground)

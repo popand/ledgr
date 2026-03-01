@@ -25,6 +25,7 @@ struct ExtractedExpense: Codable {
         let parsedDate: Date
         if let dateString = transactionDate {
             parsedDate = DateFormatters.iso8601.date(from: dateString)
+                ?? DateFormatters.yearMonthDay.date(from: dateString)
                 ?? DateFormatters.displayDate.date(from: dateString)
                 ?? Date()
         } else {

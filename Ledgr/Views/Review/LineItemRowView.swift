@@ -13,9 +13,11 @@ struct LineItemRowView: View {
 
             TextField("Description", text: $item.itemDescription)
                 .font(.subheadline)
+                .foregroundStyle(Color.ledgrDark)
 
             TextField("0.00", value: $item.amount, format: .number)
                 .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color.ledgrDark)
                 .multilineTextAlignment(.trailing)
                 .keyboardType(.decimalPad)
                 .frame(width: 80)
