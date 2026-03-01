@@ -9,7 +9,7 @@ final class AuthService: ObservableObject {
 
     private let requiredScopes = [
         "https://www.googleapis.com/auth/drive.file",
-        "https://www.googleapis.com/auth/spreadsheets.readonly"
+        "https://www.googleapis.com/auth/spreadsheets"
     ]
 
     // MARK: - Public

@@ -46,6 +46,7 @@
 		C3A1B2D4E5F607182930A1B2 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2C3E5F60718293A4B5C6D /* Insight.swift */; };
 		E4C2D3F5A6B718293041C2D3 /* InsightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D3E4A6B7182930514D3E4A /* InsightsViewModel.swift */; };
 		A5D3E4F6B7C829304152E4F5 /* AllInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E4F5A7C8293041526F5A6B /* AllInsightsView.swift */; };
+		C7D8E9F0A1B2C3D4E5F60123 /* AllTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9F0A1B2C3D4E5F6012345 /* AllTransactionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		D4B2C3E5F60718293A4B5C6D /* Insight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
 		F5D3E4A6B7182930514D3E4A /* InsightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewModel.swift; sourceTree = "<group>"; };
 		B6E4F5A7C8293041526F5A6B /* AllInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInsightsView.swift; sourceTree = "<group>"; };
+		D8E9F0A1B2C3D4E5F6012345 /* AllTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTransactionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				B6E4F5A7C8293041526F5A6B /* AllInsightsView.swift */,
+				D8E9F0A1B2C3D4E5F6012345 /* AllTransactionsView.swift */,
 				B2C3D4E5F6071829A3B4C5D6 /* CardBreakdownView.swift */,
 				D2F591C7A371D0FB671688EE /* HomeView.swift */,
 			);
@@ -376,6 +379,7 @@
 				C3A1B2D4E5F607182930A1B2 /* Insight.swift in Sources */,
 				E4C2D3F5A6B718293041C2D3 /* InsightsViewModel.swift in Sources */,
 				A5D3E4F6B7C829304152E4F5 /* AllInsightsView.swift in Sources */,
+				C7D8E9F0A1B2C3D4E5F60123 /* AllTransactionsView.swift in Sources */,
 				D7EF615FEA851F916057ADEB /* KeychainManager.swift in Sources */,
 				590A07C18C970B55B12C622E /* LLMService.swift in Sources */,
 				5A07E36D5D75AA1C76D4F56A /* LedgrApp.swift in Sources */,

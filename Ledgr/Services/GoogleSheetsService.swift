@@ -98,6 +98,70 @@ final class GoogleSheetsService: ObservableObject {
         )
     }
 
+    // MARK: - Delete Expense Row
+
+    func deleteExpenseRow(
+        merchantName: String,
+        date: Date,
+        amount: Double,
+        spreadsheetId: String,
+        accessToken: String
+    ) async throws {
+        let rows = try await readExpenses(spreadsheetId: spreadsheetId, accessToken: accessToken)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let targetDate = dateFormatter.string(from: date)
+        let targetAmount = String(format: "%.2f", amount)
+
+        // Find matching row (skip header at index 0)
+        var matchingRowIndex: Int?
+        for (index, row) in rows.enumerated() {
+            guard index > 0, row.count >= 4 else { continue }
+            let rowDate = row[0]
+            let rowMerchant = row[1]
+            let rowAmount = String(format: "%.2f", Double(row[3]) ?? -1)
+
+            if rowDate == targetDate && rowMerchant == merchantName && rowAmount == targetAmount {
+                matchingRowIndex = index
+                break
+            }
+        }
+
+        guard let rowIndex = matchingRowIndex else {
+            throw LedgrError.sheetsDeleteFailed("Could not find matching row for \(merchantName)")
+        }
+
+        // Delete the row using batchUpdate with deleteDimension
+        guard let url = URL(string: "\(APIConstants.sheetsBaseEndpoint)/\(spreadsheetId):batchUpdate") else {
+            throw LedgrError.sheetsDeleteFailed("Invalid batchUpdate URL")
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: Any] = [
+            "requests": [
+                [
+                    "deleteDimension": [
+                        "range": [
+                            "sheetId": 0,
+                            "dimension": "ROWS",
+                            "startIndex": rowIndex,
+                            "endIndex": rowIndex + 1
+                        ]
+                    ]
+                ]
+            ]
+        ]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (data, response) = try await session.data(for: request)
+        try validateHTTPResponse(response, data: data, context: "row deletion")
+    }
+
     // MARK: - Private: Spreadsheet Creation
 
     private func createSpreadsheet(named name: String, accessToken: String) async throws -> String {

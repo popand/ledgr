@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var showShareSheet = false
     @State private var showCardBreakdown = false
     @State private var showAllInsights = false
+    @State private var showAllTransactions = false
     @State private var csvFileURL: URL?
     @Environment(\.scenePhase) private var scenePhase
 
@@ -63,6 +64,13 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showCardBreakdown) {
                 CardBreakdownView()
+            }
+            .sheet(isPresented: $showAllTransactions) {
+                AllTransactionsView(
+                    authService: dependencies.authService,
+                    driveService: dependencies.googleDriveService,
+                    sheetsService: dependencies.googleSheetsService
+                )
             }
             .sheet(isPresented: $showAllInsights) {
                 if case .loaded(let insights) = insightsViewModel.state {
@@ -396,9 +404,13 @@ struct HomeView: View {
 
                 Spacer()
 
-                Text("View all")
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(Color.ledgrPrimary)
+                Button {
+                    showAllTransactions = true
+                } label: {
+                    Text("View all")
+                        .font(.caption.weight(.medium))
+                        .foregroundStyle(Color.ledgrPrimary)
+                }
             }
 
             if recentExpenses.isEmpty {

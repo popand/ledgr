@@ -11,6 +11,8 @@ enum LedgrError: LocalizedError {
     case invalidResponse
     case sheetsReadFailed(String)
     case insightGenerationFailed(String)
+    case driveDeleteFailed(String)
+    case sheetsDeleteFailed(String)
     case unknown(String)
 
     var errorDescription: String? {
@@ -35,6 +37,10 @@ enum LedgrError: LocalizedError {
             return "Failed to read from Google Sheets: \(message)"
         case .insightGenerationFailed(let message):
             return "Failed to generate insights: \(message)"
+        case .driveDeleteFailed(let message):
+            return "Failed to delete file from Google Drive: \(message)"
+        case .sheetsDeleteFailed(let message):
+            return "Failed to delete row from Google Sheets: \(message)"
         case .unknown(let message):
             return "An unexpected error occurred: \(message)"
         }

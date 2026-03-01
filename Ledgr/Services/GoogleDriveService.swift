@@ -52,6 +52,28 @@ final class GoogleDriveService: ObservableObject {
         return (fileId, webViewLink)
     }
 
+    // MARK: - Delete
+
+    func deleteFile(fileId: String, accessToken: String) async throws {
+        guard let url = URL(string: "https://www.googleapis.com/drive/v3/files/\(fileId)") else {
+            throw LedgrError.driveDeleteFailed("Invalid delete URL")
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw LedgrError.invalidResponse
+        }
+        guard httpResponse.statusCode == 204 else {
+            let body = String(data: data, encoding: .utf8) ?? "No response body"
+            throw LedgrError.driveDeleteFailed("HTTP \(httpResponse.statusCode): \(body)")
+        }
+    }
+
     // MARK: - File Naming
 
     static func buildFileName(date: Date, merchantName: String, amount: Double) -> String {
